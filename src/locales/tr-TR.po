@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: uniswap-interface\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-05-11 16:12\n"
+"PO-Revision-Date: 2022-05-16 21:06\n"
 "Last-Translator: \n"
 "Language: tr_TR\n"
 "Language-Team: Turkish\n"
@@ -848,10 +848,6 @@ msgstr "Kapalı pozisyonları gizle"
 msgid "High Price Impact"
 msgstr "Yüksek Fiyat Etkisi"
 
-#: src/components/WalletModal/index.tsx
-msgid "How this app uses APIs"
-msgstr "Bu uygulama API'leri nasıl kullanır?"
-
 #: src/components/SearchModal/ImportList.tsx
 #: src/pages/AddLiquidity/index.tsx
 msgid "I understand"
@@ -966,10 +962,6 @@ msgstr "Likidite sağlama hakkında bilgi edinin"
 #: src/components/PrivacyPolicy/index.tsx
 msgid "Learn more"
 msgstr "Daha fazla bilgi edin"
-
-#: src/components/WalletModal/index.tsx
-msgid "Learn more about wallets"
-msgstr "Cüzdanlar hakkında daha fazla bilgi edinin"
 
 #: src/components/Menu/index.tsx
 #: src/components/PrivacyPolicy/index.tsx
@@ -1513,6 +1505,10 @@ msgstr "Havuz Payı"
 msgid "Share of Pool:"
 msgstr "Havuz Payı:"
 
+#: src/pages/Vote/Landing.tsx
+msgid "Show Cancelled"
+msgstr "İptal Edilenleri Göster"
+
 #: src/pages/Pool/index.tsx
 msgid "Show closed positions"
 msgstr "Kapalı pozisyonları göster"
@@ -1599,6 +1595,10 @@ msgstr "{2} {3} yerine {0} {1} swap ediliyor"
 #: src/components/Popups/SurveyPopup.tsx
 msgid "Take a 10 minute survey to help us improve your experience in the Uniswap app."
 msgstr "Uniswap uygulamasındaki deneyiminizi iyileştirmemize yardımcı olmak için 10 dakikalık bir ankete katılın."
+
+#: src/components/WalletModal/index.tsx
+msgid "Tally"
+msgstr "taksitli"
 
 #: src/components/Popups/SurveyPopup.tsx
 msgid "Tell us what you think ↗"

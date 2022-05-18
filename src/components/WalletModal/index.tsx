@@ -1,9 +1,9 @@
 import { Trans } from '@lingui/macro'
 import { AutoColumn } from 'components/Column'
 import { PrivacyPolicy } from 'components/PrivacyPolicy'
-import Row, { AutoRow, RowBetween } from 'components/Row'
+import Row, { AutoRow } from 'components/Row'
 import { useCallback, useEffect, useState } from 'react'
-import { ArrowLeft, ArrowRight, Info } from 'react-feather'
+import { ArrowLeft } from 'react-feather'
 import ReactGA from 'react-ga4'
 import styled from 'styled-components/macro'
 import { AbstractConnector } from 'web3-react-abstract-connector'
@@ -11,6 +11,7 @@ import { UnsupportedChainIdError, useWeb3React } from 'web3-react-core'
 import { WalletConnectConnector } from 'web3-react-walletconnect-connector'
 
 import MetamaskIcon from '../../assets/images/metamask.png'
+import TallyIcon from '../../assets/images/tally.png'
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import { fortmatic, injected } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
@@ -21,7 +22,7 @@ import { ApplicationModal } from '../../state/application/reducer'
 import { ExternalLink, ThemedText } from '../../theme'
 import { isMobile } from '../../utils/userAgent'
 import AccountDetails from '../AccountDetails'
-import Card, { LightCard } from '../Card'
+import { LightCard } from '../Card'
 import Modal from '../Modal'
 import Option from './Option'
 import PendingView from './PendingView'
@@ -105,16 +106,6 @@ const HoverText = styled.div`
 
   :hover {
     cursor: pointer;
-  }
-`
-
-const LinkCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg1};
-  color: ${({ theme }) => theme.text3};
-
-  :hover {
-    cursor: pointer;
-    filter: brightness(0.9);
   }
 `
 
@@ -220,6 +211,7 @@ export default function WalletModal({
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
     const isMetamask = !!window.ethereum?.isMetaMask
+    const isTally = !!window.ethereum?.isTally
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
@@ -271,6 +263,24 @@ export default function WalletModal({
         // likewise for generic
         else if (option.name === 'Injected' && isMetamask) {
           return null
+        } else if (option.name === 'Injected' && isTally) {
+          return (
+            <Option
+              id={`connect-${key}`}
+              key={key}
+              onClick={() => {
+                option.connector === connector
+                  ? setWalletView(WALLET_VIEWS.ACCOUNT)
+                  : !option.href && tryActivation(option.connector)
+              }}
+              color={'#E8831D'}
+              header={<Trans>Tally</Trans>}
+              active={option.connector === connector}
+              subheader={null}
+              link={null}
+              icon={TallyIcon}
+            />
+          )
         }
       }
 
@@ -385,43 +395,28 @@ export default function WalletModal({
                 resetAccountView={resetAccountView}
               />
             )}
+            {walletView !== WALLET_VIEWS.PENDING && <OptionGrid>{getOptions()}</OptionGrid>}
             {!pendingError && (
               <LightCard>
                 <AutoRow style={{ flexWrap: 'nowrap' }}>
-                  <ThemedText.Black fontSize={14}>
+                  <ThemedText.Body fontSize={12}>
                     <Trans>
                       By connecting a wallet, you agree to Uniswap Labs’{' '}
-                      <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and
-                      acknowledge that you have read and understand the Uniswap{' '}
-                      <ExternalLink href="https://uniswap.org/disclaimer/">Protocol Disclaimer</ExternalLink>.
+                      <ExternalLink
+                        style={{ textDecoration: 'underline' }}
+                        href="https://uniswap.org/terms-of-service/"
+                      >
+                        Terms of Service
+                      </ExternalLink>{' '}
+                      and acknowledge that you have read and understand the Uniswap{' '}
+                      <ExternalLink style={{ textDecoration: 'underline' }} href="https://uniswap.org/disclaimer/">
+                        Protocol Disclaimer
+                      </ExternalLink>
+                      .
                     </Trans>
-                  </ThemedText.Black>
+                  </ThemedText.Body>
                 </AutoRow>
               </LightCard>
-            )}
-            {walletView !== WALLET_VIEWS.PENDING && (
-              <>
-                <OptionGrid>{getOptions()}</OptionGrid>
-                <LinkCard padding=".5rem" $borderRadius=".75rem" onClick={() => setWalletView(WALLET_VIEWS.LEGAL)}>
-                  <RowBetween>
-                    <AutoRow gap="4px">
-                      <Info size={20} />
-                      <ThemedText.Label fontSize={14}>
-                        <Trans>How this app uses APIs</Trans>
-                      </ThemedText.Label>
-                    </AutoRow>
-                    <ArrowRight size={16} />
-                  </RowBetween>
-                </LinkCard>
-                <ThemedText.Black fontSize={14}>
-                  <ExternalLink href="https://help.uniswap.org/en/articles/5391525-what-is-a-wallet">
-                    <Row justify="center" alignItems="center">
-                      <Trans>Learn more about wallets</Trans>
-                      <ArrowRight size={16} />
-                    </Row>
-                  </ExternalLink>
-                </ThemedText.Black>
-              </>
             )}
           </AutoColumn>
         </ContentWrapper>
