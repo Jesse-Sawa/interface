@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro'
 import { AutoColumn } from 'components/Column'
 import { PrivacyPolicy } from 'components/PrivacyPolicy'
 import Row, { AutoRow, RowBetween } from 'components/Row'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, Info } from 'react-feather'
 import ReactGA from 'react-ga4'
 import styled from 'styled-components/macro'
@@ -150,6 +150,11 @@ export default function WalletModal({
 
   const previousAccount = usePrevious(account)
 
+  const resetAccountView = useCallback(() => {
+    setPendingError(false)
+    setWalletView(WALLET_VIEWS.ACCOUNT)
+  }, [setPendingError, setWalletView])
+
   // close on connection, when logged out before
   useEffect(() => {
     if (account && !previousAccount && walletModalOpen) {
@@ -160,10 +165,9 @@ export default function WalletModal({
   // always reset to account view
   useEffect(() => {
     if (walletModalOpen) {
-      setPendingError(false)
-      setWalletView(WALLET_VIEWS.ACCOUNT)
+      resetAccountView()
     }
-  }, [walletModalOpen])
+  }, [walletModalOpen, resetAccountView])
 
   // close modal when a connection is successful
   const activePrevious = usePrevious(active)
@@ -215,7 +219,7 @@ export default function WalletModal({
 
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
-    const isMetamask = window.ethereum && window.ethereum.isMetaMask
+    const isMetamask = !!window.ethereum?.isMetaMask
     return Object.keys(SUPPORTED_WALLETS).map((key) => {
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
@@ -358,12 +362,7 @@ export default function WalletModal({
         </CloseIcon>
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
           <HeaderRow color="blue">
-            <HoverText
-              onClick={() => {
-                setPendingError(false)
-                setWalletView(WALLET_VIEWS.ACCOUNT)
-              }}
-            >
+            <HoverText onClick={resetAccountView}>
               <ArrowLeft />
             </HoverText>
           </HeaderRow>
@@ -377,39 +376,53 @@ export default function WalletModal({
 
         <ContentWrapper>
           <AutoColumn gap="16px">
-            <LightCard>
-              <AutoRow style={{ flexWrap: 'nowrap' }}>
-                <ThemedText.Black fontSize={14}>
-                  <Trans>
-                    By connecting a wallet, you agree to Uniswap Labs’{' '}
-                    <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and
-                    acknowledge that you have read and understand the Uniswap{' '}
-                    <ExternalLink href="https://uniswap.org/disclaimer/">Protocol Disclaimer</ExternalLink>.
-                  </Trans>
-                </ThemedText.Black>
-              </AutoRow>
-            </LightCard>
-            {walletView === WALLET_VIEWS.PENDING ? (
+            {walletView === WALLET_VIEWS.PENDING && (
               <PendingView
                 connector={pendingWallet}
                 error={pendingError}
                 setPendingError={setPendingError}
                 tryActivation={tryActivation}
+                resetAccountView={resetAccountView}
               />
-            ) : (
-              <OptionGrid>{getOptions()}</OptionGrid>
             )}
-            <LinkCard padding=".5rem" $borderRadius=".75rem" onClick={() => setWalletView(WALLET_VIEWS.LEGAL)}>
-              <RowBetween>
-                <AutoRow gap="4px">
-                  <Info size={20} />
-                  <ThemedText.Label fontSize={14}>
-                    <Trans>How this app uses APIs</Trans>
-                  </ThemedText.Label>
+            {!pendingError && (
+              <LightCard>
+                <AutoRow style={{ flexWrap: 'nowrap' }}>
+                  <ThemedText.Black fontSize={14}>
+                    <Trans>
+                      By connecting a wallet, you agree to Uniswap Labs’{' '}
+                      <ExternalLink href="https://uniswap.org/terms-of-service/">Terms of Service</ExternalLink> and
+                      acknowledge that you have read and understand the Uniswap{' '}
+                      <ExternalLink href="https://uniswap.org/disclaimer/">Protocol Disclaimer</ExternalLink>.
+                    </Trans>
+                  </ThemedText.Black>
                 </AutoRow>
-                <ArrowRight size={16} />
-              </RowBetween>
-            </LinkCard>
+              </LightCard>
+            )}
+            {walletView !== WALLET_VIEWS.PENDING && (
+              <>
+                <OptionGrid>{getOptions()}</OptionGrid>
+                <LinkCard padding=".5rem" $borderRadius=".75rem" onClick={() => setWalletView(WALLET_VIEWS.LEGAL)}>
+                  <RowBetween>
+                    <AutoRow gap="4px">
+                      <Info size={20} />
+                      <ThemedText.Label fontSize={14}>
+                        <Trans>How this app uses APIs</Trans>
+                      </ThemedText.Label>
+                    </AutoRow>
+                    <ArrowRight size={16} />
+                  </RowBetween>
+                </LinkCard>
+                <ThemedText.Black fontSize={14}>
+                  <ExternalLink href="https://help.uniswap.org/en/articles/5391525-what-is-a-wallet">
+                    <Row justify="center" alignItems="center">
+                      <Trans>Learn more about wallets</Trans>
+                      <ArrowRight size={16} />
+                    </Row>
+                  </ExternalLink>
+                </ThemedText.Black>
+              </>
+            )}
           </AutoColumn>
         </ContentWrapper>
       </UpperSection>
