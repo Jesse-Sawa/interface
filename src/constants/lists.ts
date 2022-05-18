@@ -12,6 +12,9 @@ const ROLL_LIST = 'https://app.tryroll.com/tokens.json'
 const SET_LIST = 'https://raw.githubusercontent.com/SetProtocol/uniswap-tokenlist/main/set.tokenlist.json'
 const WRAPPED_LIST = 'wrapped.tokensoft.eth'
 
+//TODO deploy list for Alfajores and Mainnet tokens - auto toggle on network switch
+const CELO_ALFAJORES = ""
+
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST]
 
 // this is the default list of lists that are exposed to users
@@ -29,6 +32,7 @@ const DEFAULT_LIST_OF_LISTS_TO_DISPLAY: string[] = [
   ROLL_LIST,
   ARBITRUM_LIST,
   OPTIMISM_LIST,
+  CELO_ALFAJORES
 ]
 
 export const DEFAULT_LIST_OF_LISTS: string[] = [

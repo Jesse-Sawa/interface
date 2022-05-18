@@ -4,8 +4,10 @@ import { Currency, Token } from '@uniswap/sdk-core'
 import { SupportedChainId } from './chains'
 import {
   AMPL,
+  CUSD_CELO,
   DAI,
   DAI_ARBITRUM_ONE,
+  DAI_CELO,
   DAI_OPTIMISM,
   DAI_POLYGON,
   ETH2X_FLI,
@@ -19,6 +21,7 @@ import {
   SWISE,
   TRIBE,
   USDC_ARBITRUM,
+  USDC_CELO,
   USDC_MAINNET,
   USDC_OPTIMISM,
   USDC_POLYGON,
@@ -28,8 +31,11 @@ import {
   USDT_POLYGON,
   WBTC,
   WBTC_ARBITRUM_ONE,
+  WBTC_CELO,
   WBTC_OPTIMISM,
   WBTC_POLYGON,
+  WETH_CELO,
+  WETH_CELO_ALFAJORES,
   WETH_POLYGON,
   WETH_POLYGON_MUMBAI,
   WRAPPED_NATIVE_CURRENCY,
@@ -77,6 +83,13 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDC_POLYGON,
     USDT_POLYGON,
     WETH_POLYGON,
+  ],
+  [SupportedChainId.CELO]: [
+    ...WRAPPED_NATIVE_CURRENCIES_ONLY[SupportedChainId.CELO],
+    DAI_CELO,
+    USDC_CELO,
+    CUSD_CELO,
+    WETH_CELO,
   ],
 }
 export const ADDITIONAL_BASES: { [chainId: number]: { [tokenAddress: string]: Token[] } } = {
@@ -162,6 +175,12 @@ export const COMMON_BASES: ChainCurrencyList = {
     nativeOnChain(SupportedChainId.POLYGON_MUMBAI),
     WRAPPED_NATIVE_CURRENCY[SupportedChainId.POLYGON_MUMBAI] as Token,
     WETH_POLYGON_MUMBAI,
+  ],
+  [SupportedChainId.CELO]: [nativeOnChain(SupportedChainId.CELO), WETH_CELO, USDC_CELO, DAI_CELO, CUSD_CELO, WBTC_CELO],
+  [SupportedChainId.CELO_ALFAJORES]: [
+    nativeOnChain(SupportedChainId.CELO_ALFAJORES),
+    WRAPPED_NATIVE_CURRENCY[SupportedChainId.CELO_ALFAJORES] as Token,
+    WETH_CELO_ALFAJORES,
   ],
 }
 

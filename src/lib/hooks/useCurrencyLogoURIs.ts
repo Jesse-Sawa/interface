@@ -5,6 +5,7 @@ import { useMemo } from 'react'
 import { WrappedTokenInfo } from 'state/lists/wrappedTokenInfo'
 
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
+import CeloLogo from '../../assets/svg/celo-logo.svg'
 import MaticLogo from '../../assets/svg/matic-token-icon.svg'
 
 type Network = 'ethereum' | 'arbitrum' | 'optimism'
@@ -24,9 +25,12 @@ function chainIdToNetworkName(networkId: SupportedChainId): Network {
 
 function getNativeLogoURI(chainId: SupportedChainId = SupportedChainId.MAINNET): string {
   switch (chainId) {
-    case SupportedChainId.POLYGON_MUMBAI:
     case SupportedChainId.POLYGON:
+    case SupportedChainId.POLYGON_MUMBAI:
       return MaticLogo
+    case SupportedChainId.CELO:
+    case SupportedChainId.CELO_ALFAJORES:
+      return CeloLogo
     default:
       return EthereumLogo
   }

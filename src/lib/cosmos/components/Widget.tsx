@@ -4,7 +4,7 @@ import { MetaMask } from '@web3-react/metamask'
 import { Connector } from '@web3-react/types'
 import { WalletConnect } from '@web3-react/walletconnect'
 import { SupportedChainId } from 'constants/chains'
-import { INFURA_NETWORK_URLS } from 'constants/infura'
+import { NETWORK_URLS } from 'constants/infura'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'constants/locales'
 import Widget from 'lib/components/Widget'
 import { darkTheme, defaultTheme, lightTheme } from 'lib/theme'
@@ -13,7 +13,7 @@ import { useSelect, useValue } from 'react-cosmos/fixture'
 
 const [metaMask] = initializeConnector<MetaMask>((actions) => new MetaMask(actions))
 const [walletConnect] = initializeConnector<WalletConnect>(
-  (actions) => new WalletConnect(actions, { rpc: INFURA_NETWORK_URLS })
+  (actions) => new WalletConnect(actions, { rpc: NETWORK_URLS })
 )
 
 export default function Wrapper({ children }: { children: ReactNode }) {
@@ -30,8 +30,8 @@ export default function Wrapper({ children }: { children: ReactNode }) {
 
   const NO_JSON_RPC = 'None'
   const [jsonRpcEndpoint] = useSelect('JSON-RPC', {
-    defaultValue: INFURA_NETWORK_URLS[SupportedChainId.MAINNET],
-    options: [NO_JSON_RPC, ...Object.values(INFURA_NETWORK_URLS).sort()],
+    defaultValue: NETWORK_URLS[SupportedChainId.MAINNET],
+    options: [NO_JSON_RPC, ...Object.values(NETWORK_URLS).sort()],
   })
 
   const NO_CONNECTOR = 'None'
