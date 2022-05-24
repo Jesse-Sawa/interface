@@ -4,6 +4,7 @@ import invariant from 'tiny-invariant'
 import { UNI_ADDRESS } from './addresses'
 import { SupportedChainId } from './chains'
 
+/*eslint-disable*/
 export const USDC_MAINNET = new Token(
   SupportedChainId.MAINNET,
   '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -139,7 +140,7 @@ export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.GOERLI]: USDC_GOERLI,
   [SupportedChainId.RINKEBY]: USDC_RINKEBY,
   [SupportedChainId.KOVAN]: USDC_KOVAN,
-  [SupportedChainId.ROPSTEN]: USDC_ROPSTEN,
+  [SupportedChainId.ROPSTEN]: USDC_ROPSTEN
 }
 export const DAI_POLYGON = new Token(
   SupportedChainId.POLYGON,
@@ -310,6 +311,13 @@ export const WETH_CELO = new Token(
   'WETH',
   'Wrapped Ether'
 )
+export const CELO_ALFAJORES = new Token(
+  SupportedChainId.CELO_ALFAJORES,
+  '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
+  18,
+  'CELO',
+  'Celo native asset'
+)
 export const WETH_CELO_ALFAJORES = new Token(
   SupportedChainId.CELO_ALFAJORES,
   '0xDe37f36C9c045164CE89D3cEaeC67949EfACC398',
@@ -317,12 +325,46 @@ export const WETH_CELO_ALFAJORES = new Token(
   'WETH',
   'Wrapped Ether'
 )
+export const CUSD_CELO_ALFAJORES = new Token(
+  SupportedChainId.CELO,
+  '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1',
+  18,
+  'CUSD',
+  'Celo Dollar Stablecoin'
+)
+export const CEUR_CELO_ALFAJORES = new Token(
+  SupportedChainId.CELO_ALFAJORES,
+  '0x10c892A6EC43a53E45D0B916B4b7D383B1b78C0F',
+  18,
+  'CEUR',
+  'Celo Euro Stablecoin'
+)
+
 export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.MAINNET]: new Token(SupportedChainId.MAINNET, UNI_ADDRESS[1], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.RINKEBY]: new Token(SupportedChainId.RINKEBY, UNI_ADDRESS[4], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.ROPSTEN]: new Token(SupportedChainId.ROPSTEN, UNI_ADDRESS[3], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.GOERLI]: new Token(SupportedChainId.GOERLI, UNI_ADDRESS[5], 18, 'UNI', 'Uniswap'),
-  [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap'),
+  [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap')
+}
+
+// These native currencies implement ERC20 interface and require approval
+export const HYBRID_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
+  /* Celo native asset implements erc20 interface */
+  [SupportedChainId.CELO]: new Token(
+    SupportedChainId.CELO,
+    '0x471EcE3750Da237f93B8E339c536989b8978a438',
+    18,
+    'CELO',
+    'Celo native asset'
+  ),
+  [SupportedChainId.CELO_ALFAJORES]: new Token(
+    SupportedChainId.CELO_ALFAJORES,
+    '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
+    18,
+    'CELO',
+    'Celo native asset'
+  )
 }
 
 export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
@@ -371,18 +413,18 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
   ),
   [SupportedChainId.CELO]: new Token(
     SupportedChainId.CELO,
-    '0x3Ad443d769A07f287806874F8E5405cE3Ac902b9',
+    '0x471EcE3750Da237f93B8E339c536989b8978a438',
     18,
-    'WCELO',
-    'Wrapped Celo'
+    'CELO',
+    'Celo native asset'
   ),
   [SupportedChainId.CELO_ALFAJORES]: new Token(
     SupportedChainId.CELO_ALFAJORES,
-    '0x524d97A67f50F4A062C28c74F60703Aec9028a94',
+    '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
     18,
-    'WCELO',
-    'Wrapped Celo'
-  ),
+    'CELO',
+    'Celo native asset'
+  )
 }
 
 function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {

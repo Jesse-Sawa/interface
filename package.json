@@ -171,6 +171,8 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@babel/runtime": "^7.17.0",
+    "@celo-tools/celo-ethers-wrapper": "^0.1.1",
+    "@celo/contractkit": "^2.0.0",
     "@fontsource/ibm-plex-mono": "^4.5.1",
     "@fontsource/inter": "^4.5.1",
     "@popperjs/core": "^2.4.4",
@@ -209,6 +211,7 @@
     "styled-components": "^5.3.0",
     "tiny-invariant": "^1.2.0",
     "wcag-contrast": "^3.0.0",
+    "web3": "^1.7.3",
     "web3-react-core": "npm:@web3-react/core@^6.0.9",
     "wicg-inert": "^3.1.1"
   },

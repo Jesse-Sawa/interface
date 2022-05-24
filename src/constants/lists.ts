@@ -12,8 +12,9 @@ const ROLL_LIST = 'https://app.tryroll.com/tokens.json'
 const SET_LIST = 'https://raw.githubusercontent.com/SetProtocol/uniswap-tokenlist/main/set.tokenlist.json'
 const WRAPPED_LIST = 'wrapped.tokensoft.eth'
 
+/*eslint-disable*/
 //TODO deploy list for Alfajores and Mainnet tokens - auto toggle on network switch
-const CELO_ALFAJORES = ""
+const CELO_ALFAJORES = 'https://4c5c376a-292c-4933-9265-fbd0cc68b35d.mock.pstmn.io'
 
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST]
 

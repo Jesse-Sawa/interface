@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import { MaxUint256 } from '@ethersproject/constants'
 import { TransactionResponse } from '@ethersproject/providers'
 import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
@@ -28,7 +30,7 @@ export function useApprovalStateForSpender(
   return useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
     if (amountToApprove.currency.isNative) return ApprovalState.APPROVED
-    // we might not have enough data to know whether or not we need to approve
+    // we might not have enough data to know whether we need to approve or not
     if (!currentAllowance) return ApprovalState.UNKNOWN
 
     // amountToApprove will be defined if currentAllowance is
