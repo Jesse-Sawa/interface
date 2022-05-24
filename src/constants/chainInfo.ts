@@ -3,7 +3,7 @@ import arbitrumLogoUrl from 'assets/svg/arbitrum_logo.svg'
 import optimismLogoUrl from 'assets/svg/optimistic_ethereum.svg'
 import polygonMaticLogo from 'assets/svg/polygon-matic-logo.svg'
 import ms from 'ms.macro'
-import celoLogo from 'assets/svg/celo-logo.svg'
+import celoLogo from 'assets/svg/celo_logo.svg'
 
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
 import { ARBITRUM_LIST, OPTIMISM_LIST } from './lists'
