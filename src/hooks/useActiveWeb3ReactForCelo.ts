@@ -1,6 +1,7 @@
-import { useWeb3React } from "web3-react-core";
-import { NetworkContextName } from "../constants/misc";
-import { CeloProvider } from "./Celo";
+import { useWeb3React } from 'web3-react-core'
+
+import { NetworkContextName } from '../constants/misc'
+import { CeloProvider } from './Celo'
 
 export default function useActiveWeb3ReactForCelo() {
   const interfaceContext = useWeb3React<CeloProvider>()

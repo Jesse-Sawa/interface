@@ -1,5 +1,4 @@
 // a list of tokens by chain
-/* eslint-ignore */
 import { Currency, Token } from '@uniswap/sdk-core'
 
 import { SupportedChainId } from './chains'
@@ -177,11 +176,16 @@ export const COMMON_BASES: ChainCurrencyList = {
   [SupportedChainId.POLYGON_MUMBAI]: [
     nativeOnChain(SupportedChainId.POLYGON_MUMBAI),
     WRAPPED_NATIVE_CURRENCY[SupportedChainId.POLYGON_MUMBAI] as Token,
-    WETH_POLYGON_MUMBAI
+    WETH_POLYGON_MUMBAI,
   ],
+
   [SupportedChainId.CELO]: [
     // nativeOnChain(SupportedChainId.CELO),
-    WETH_CELO, USDC_CELO, DAI_CELO, CUSD_CELO, WBTC_CELO
+    WETH_CELO,
+    USDC_CELO,
+    DAI_CELO,
+    CUSD_CELO,
+    WBTC_CELO,
   ],
   [SupportedChainId.CELO_ALFAJORES]: [
     // nativeOnChain(SupportedChainId.CELO_ALFAJORES),
@@ -189,8 +193,8 @@ export const COMMON_BASES: ChainCurrencyList = {
     // WETH_CELO_ALFAJORES,
     CELO_ALFAJORES,
     CUSD_CELO_ALFAJORES,
-    CEUR_CELO_ALFAJORES
-  ]
+    CEUR_CELO_ALFAJORES,
+  ],
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
