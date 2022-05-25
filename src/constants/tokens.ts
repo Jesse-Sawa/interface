@@ -93,7 +93,7 @@ export const USDC_CELO = new Token(
 
 export const USDC_CELO_ALFAJORES = new Token(
   SupportedChainId.CELO_ALFAJORES,
-  '0xe11a86849d99f524cac3e7a0ec1241828e332c62',
+  '0x41F4a5d2632b019Ae6CE9625bE3c9CaC143AcC7D',
   6,
   'USDC',
   'USD//C'
@@ -140,7 +140,7 @@ export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.GOERLI]: USDC_GOERLI,
   [SupportedChainId.RINKEBY]: USDC_RINKEBY,
   [SupportedChainId.KOVAN]: USDC_KOVAN,
-  [SupportedChainId.ROPSTEN]: USDC_ROPSTEN
+  [SupportedChainId.ROPSTEN]: USDC_ROPSTEN,
 }
 export const DAI_POLYGON = new Token(
   SupportedChainId.POLYGON,
@@ -311,20 +311,6 @@ export const WETH_CELO = new Token(
   'WETH',
   'Wrapped Ether'
 )
-export const CELO_ALFAJORES = new Token(
-  SupportedChainId.CELO_ALFAJORES,
-  '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
-  18,
-  'CELO',
-  'Celo native asset'
-)
-export const WETH_CELO_ALFAJORES = new Token(
-  SupportedChainId.CELO_ALFAJORES,
-  '0xDe37f36C9c045164CE89D3cEaeC67949EfACC398',
-  18,
-  'WETH',
-  'Wrapped Ether'
-)
 export const CUSD_CELO_ALFAJORES = new Token(
   SupportedChainId.CELO,
   '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1',
@@ -345,7 +331,7 @@ export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.RINKEBY]: new Token(SupportedChainId.RINKEBY, UNI_ADDRESS[4], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.ROPSTEN]: new Token(SupportedChainId.ROPSTEN, UNI_ADDRESS[3], 18, 'UNI', 'Uniswap'),
   [SupportedChainId.GOERLI]: new Token(SupportedChainId.GOERLI, UNI_ADDRESS[5], 18, 'UNI', 'Uniswap'),
-  [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap')
+  [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap'),
 }
 
 // These native currencies implement ERC20 interface and require approval
@@ -364,7 +350,7 @@ export const HYBRID_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = 
     18,
     'CELO',
     'Celo native asset'
-  )
+  ),
 }
 
 export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
@@ -424,7 +410,7 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     18,
     'CELO',
     'Celo native asset'
-  )
+  ),
 }
 
 function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {
