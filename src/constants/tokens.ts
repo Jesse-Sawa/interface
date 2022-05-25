@@ -85,7 +85,7 @@ export const USDC_POLYGON_MUMBAI = new Token(
 
 export const USDC_CELO = new Token(
   SupportedChainId.CELO,
-  '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
+  '0xef4229c8c3250C675F21BCefa42f58EfbfF6002a',
   6,
   'USDC',
   'USD//C'
@@ -175,7 +175,14 @@ export const CUSD_CELO = new Token(
   '0x765DE816845861e75A25fCA122bb6898B8B1282a',
   6,
   'CUSD',
-  'Celo Stablecoin'
+  'Celo Dollar'
+)
+export const CEUR_CELO = new Token(
+  SupportedChainId.CELO,
+  '0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73',
+  6,
+  'CEUR',
+  'Celo Euro Stablecoin'
 )
 export const WBTC_CELO = new Token(
   SupportedChainId.CELO,
@@ -304,19 +311,12 @@ export const WETH_POLYGON = new Token(
   'WETH',
   'Wrapped Ether'
 )
-export const WETH_CELO = new Token(
-  SupportedChainId.CELO,
-  '0x122013fd7dF1C6F636a5bb8f03108E876548b455',
-  18,
-  'WETH',
-  'Wrapped Ether'
-)
 export const CUSD_CELO_ALFAJORES = new Token(
   SupportedChainId.CELO,
   '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1',
   18,
   'CUSD',
-  'Celo Dollar Stablecoin'
+  'Celo Dollar'
 )
 export const CEUR_CELO_ALFAJORES = new Token(
   SupportedChainId.CELO_ALFAJORES,
@@ -337,6 +337,23 @@ export const UNI: { [chainId: number]: Token } = {
 // These native currencies implement ERC20 interface and require approval
 export const HYBRID_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
   /* Celo native asset implements erc20 interface */
+  [SupportedChainId.CELO]: new Token(
+    SupportedChainId.CELO,
+    '0x471EcE3750Da237f93B8E339c536989b8978a438',
+    18,
+    'CELO',
+    'Celo native asset'
+  ),
+  [SupportedChainId.CELO_ALFAJORES]: new Token(
+    SupportedChainId.CELO_ALFAJORES,
+    '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
+    18,
+    'CELO',
+    'Celo native asset'
+  ),
+}
+
+export const NATIVE_CURRENCY_ERC20: { [chainId: number]: Token | undefined } = {
   [SupportedChainId.CELO]: new Token(
     SupportedChainId.CELO,
     '0x471EcE3750Da237f93B8E339c536989b8978a438',
@@ -397,20 +414,6 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WMATIC',
     'Wrapped MATIC'
   ),
-  [SupportedChainId.CELO]: new Token(
-    SupportedChainId.CELO,
-    '0x471EcE3750Da237f93B8E339c536989b8978a438',
-    18,
-    'CELO',
-    'Celo native asset'
-  ),
-  [SupportedChainId.CELO_ALFAJORES]: new Token(
-    SupportedChainId.CELO_ALFAJORES,
-    '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
-    18,
-    'CELO',
-    'Celo native asset'
-  ),
 }
 
 function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {
@@ -424,7 +427,7 @@ class CeloNativeCurrency extends NativeCurrency {
 
   get wrapped(): Token {
     if (!isCelo(this.chainId)) throw new Error('Not celo')
-    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    const wrapped = NATIVE_CURRENCY_ERC20[this.chainId]
     invariant(wrapped instanceof Token)
     return wrapped
   }

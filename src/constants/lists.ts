@@ -14,7 +14,7 @@ const WRAPPED_LIST = 'wrapped.tokensoft.eth'
 
 /*eslint-disable*/
 //TODO deploy list for Alfajores and Mainnet tokens - auto toggle on network switch
-const CELO_ALFAJORES = 'https://4c5c376a-292c-4933-9265-fbd0cc68b35d.mock.pstmn.io'
+const CELO_ALFAJORES = 'https://raw.githubusercontent.com/jesse-sawa/celo-token-list/main/alfajores.tokenlist.json'
 
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST]
 
@@ -33,7 +33,7 @@ const DEFAULT_LIST_OF_LISTS_TO_DISPLAY: string[] = [
   ROLL_LIST,
   ARBITRUM_LIST,
   OPTIMISM_LIST,
-  CELO_ALFAJORES
+  CELO_ALFAJORES,
 ]
 
 export const DEFAULT_LIST_OF_LISTS: string[] = [

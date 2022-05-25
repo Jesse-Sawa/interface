@@ -288,17 +288,16 @@ export default function AddLiquidity({
 
       try {
         if ([SupportedChainId.CELO_ALFAJORES, SupportedChainId.CELO].includes(chainId)) {
-          console.log('inside celo gas estimate ' + chainId)
-          const gasLimit = calculateGasMargin(BigNumber.from(5500000))
+          const gasLimit = calculateGasMargin(BigNumber.from(55000000))
           newTxn = {
             ...txn,
-            gasLimit
+            gasLimit,
           }
         } else {
           const gasLimitEstimate = await library.getSigner().estimateGas(txn)
           newTxn = {
             ...txn,
-            gasLimit: calculateGasMargin(gasLimitEstimate)
+            gasLimit: calculateGasMargin(gasLimitEstimate),
           }
         }
       } catch (error) {
@@ -306,6 +305,7 @@ export default function AddLiquidity({
       }
 
       console.log({ newTxn })
+      console.log('Addliquiidty send transaction')
 
       return library
         .getSigner()
@@ -319,13 +319,13 @@ export default function AddLiquidity({
             createPool: Boolean(noLiquidity),
             expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
             expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
-            feeAmount: position.pool.fee
+            feeAmount: position.pool.fee,
           })
           setTxHash(response.hash)
           ReactGA.event({
             category: 'Liquidity',
             action: 'Add',
-            label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/')
+            label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
           })
         })
         .catch((error) => {
