@@ -284,49 +284,36 @@ export default function AddLiquidity({
 
       setAttemptingTxn(true)
 
-      let newTxn = {}
-
-      try {
-        if ([SupportedChainId.CELO_ALFAJORES, SupportedChainId.CELO].includes(chainId)) {
-          const gasLimit = calculateGasMargin(BigNumber.from(55000000))
-          newTxn = {
-            ...txn,
-            gasLimit,
-          }
-        } else {
-          const gasLimitEstimate = await library.getSigner().estimateGas(txn)
-          newTxn = {
-            ...txn,
-            gasLimit: calculateGasMargin(gasLimitEstimate),
-          }
-        }
-      } catch (error) {
-        console.log(error)
-      }
-
-      console.log({ newTxn })
-      console.log('Addliquiidty send transaction')
-
-      return library
+      library
         .getSigner()
-        .sendTransaction(newTxn)
-        .then((response: TransactionResponse) => {
-          setAttemptingTxn(false)
-          addTransaction(response, {
-            type: TransactionType.ADD_LIQUIDITY_V3_POOL,
-            baseCurrencyId: currencyId(baseCurrency),
-            quoteCurrencyId: currencyId(quoteCurrency),
-            createPool: Boolean(noLiquidity),
-            expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
-            expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
-            feeAmount: position.pool.fee,
-          })
-          setTxHash(response.hash)
-          ReactGA.event({
-            category: 'Liquidity',
-            action: 'Add',
-            label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
-          })
+        .estimateGas(txn)
+        .then((estimate) => {
+          const newTxn = {
+            ...txn,
+            gasLimit: calculateGasMargin(estimate),
+          }
+
+          return library
+            .getSigner()
+            .sendTransaction(newTxn)
+            .then((response: TransactionResponse) => {
+              setAttemptingTxn(false)
+              addTransaction(response, {
+                type: TransactionType.ADD_LIQUIDITY_V3_POOL,
+                baseCurrencyId: currencyId(baseCurrency),
+                quoteCurrencyId: currencyId(quoteCurrency),
+                createPool: Boolean(noLiquidity),
+                expectedAmountBaseRaw: parsedAmounts[Field.CURRENCY_A]?.quotient?.toString() ?? '0',
+                expectedAmountQuoteRaw: parsedAmounts[Field.CURRENCY_B]?.quotient?.toString() ?? '0',
+                feeAmount: position.pool.fee,
+              })
+              setTxHash(response.hash)
+              ReactGA.event({
+                category: 'Liquidity',
+                action: 'Add',
+                label: [currencies[Field.CURRENCY_A]?.symbol, currencies[Field.CURRENCY_B]?.symbol].join('/'),
+              })
+            })
         })
         .catch((error) => {
           console.error('Failed to send transaction', error)

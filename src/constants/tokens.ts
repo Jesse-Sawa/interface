@@ -334,26 +334,7 @@ export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap'),
 }
 
-// These native currencies implement ERC20 interface and require approval
-export const HYBRID_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
-  /* Celo native asset implements erc20 interface */
-  [SupportedChainId.CELO]: new Token(
-    SupportedChainId.CELO,
-    '0x471EcE3750Da237f93B8E339c536989b8978a438',
-    18,
-    'CELO',
-    'Celo native asset'
-  ),
-  [SupportedChainId.CELO_ALFAJORES]: new Token(
-    SupportedChainId.CELO_ALFAJORES,
-    '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
-    18,
-    'CELO',
-    'Celo native asset'
-  ),
-}
-
-export const NATIVE_CURRENCY_ERC20: { [chainId: number]: Token | undefined } = {
+export const NATIVE_CURRENCY_IS_ERC20: { [chainId: number]: Token | undefined } = {
   [SupportedChainId.CELO]: new Token(
     SupportedChainId.CELO,
     '0x471EcE3750Da237f93B8E339c536989b8978a438',
@@ -372,6 +353,7 @@ export const NATIVE_CURRENCY_ERC20: { [chainId: number]: Token | undefined } = {
 
 export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
   ...(WETH9 as Record<SupportedChainId, Token>),
+  ...NATIVE_CURRENCY_IS_ERC20,
   [SupportedChainId.OPTIMISM]: new Token(
     SupportedChainId.OPTIMISM,
     '0x4200000000000000000000000000000000000006',
@@ -420,14 +402,18 @@ function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedCh
   return chainId === SupportedChainId.CELO_ALFAJORES || chainId === SupportedChainId.CELO
 }
 
-class CeloNativeCurrency extends NativeCurrency {
+abstract class NativeWithAddress extends NativeCurrency {
+  readonly address: string | undefined
+}
+
+class CeloNativeCurrency extends NativeWithAddress {
   equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
   }
 
   get wrapped(): Token {
     if (!isCelo(this.chainId)) throw new Error('Not celo')
-    const wrapped = NATIVE_CURRENCY_ERC20[this.chainId]
+    const wrapped = NATIVE_CURRENCY_IS_ERC20[this.chainId]
     invariant(wrapped instanceof Token)
     return wrapped
   }
@@ -435,7 +421,10 @@ class CeloNativeCurrency extends NativeCurrency {
   public constructor(chainId: number) {
     if (!isCelo(chainId)) throw new Error('Not celo')
     super(chainId, 18, 'Celo', 'Celo')
+    this.address = NATIVE_CURRENCY_IS_ERC20[chainId]?.address
   }
+
+  readonly address: string | undefined
 }
 
 function isMatic(chainId: number): chainId is SupportedChainId.POLYGON | SupportedChainId.POLYGON_MUMBAI {

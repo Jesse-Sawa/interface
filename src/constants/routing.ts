@@ -4,6 +4,7 @@ import { Currency, Token } from '@uniswap/sdk-core'
 import { SupportedChainId } from './chains'
 import {
   AMPL,
+  CEUR_CELO,
   CEUR_CELO_ALFAJORES,
   CUSD_CELO,
   CUSD_CELO_ALFAJORES,
@@ -84,7 +85,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT_POLYGON,
     WETH_POLYGON,
   ],
-  [SupportedChainId.CELO]: [DAI_CELO, CUSD_CELO],
+  [SupportedChainId.CELO]: [DAI_CELO, CUSD_CELO, CEUR_CELO],
 }
 export const ADDITIONAL_BASES: { [chainId: number]: { [tokenAddress: string]: Token[] } } = {
   [SupportedChainId.MAINNET]: {

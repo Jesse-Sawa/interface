@@ -24,7 +24,7 @@ export const V3_ROUTER_ADDRESS: AddressMap = {
     SupportedChainId.POLYGON_MUMBAI,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x23Bc5Ea94b847d002325D2D8c36F4ffAcB90B246',
+  [SupportedChainId.CELO_ALFAJORES]: '0x9Cf09C0507c99b41Ca875ad5451f25Ca18110A6A',
 }
 
 export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
@@ -37,7 +37,7 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0xAbfC38Ad3BE3618f13dDb29e353047CE3737c2Eb',
+  [SupportedChainId.CELO_ALFAJORES]: '0xFABdaD603E6bdc8Bc7222B2DB7BcDB84e5a0A385',
 }
 
 export const V3_MIGRATOR_ADDRESSES: AddressMap = {
@@ -48,7 +48,7 @@ export const V3_MIGRATOR_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x3d4930E1ae79464514e022Dbe104FCD14904A1c3',
+  [SupportedChainId.CELO_ALFAJORES]: '0x437740563dc8De3B64AE7A3df922581f6B4033DF',
 }
 
 export const MULTICALL_ADDRESS: AddressMap = {
@@ -61,7 +61,7 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xadF885960B47eA2CD9B55E6DAc6B42b7Cb2806dB',
   [SupportedChainId.ARBITRUM_RINKEBY]: '0xa501c031958F579dB7676fF1CE78AD305794d579',
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x2221FAA59a68aA4B437be1569BF1563C5F401C0D',
+  [SupportedChainId.CELO_ALFAJORES]: '0xE21c99d7dc0810fB44B9583120D46b052C0ef43A',
 }
 
 export const SWAP_ROUTER_ADDRESSES: AddressMap = {
@@ -74,7 +74,7 @@ export const SWAP_ROUTER_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON_MUMBAI,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x23Bc5Ea94b847d002325D2D8c36F4ffAcB90B246',
+  [SupportedChainId.CELO_ALFAJORES]: '0x9Cf09C0507c99b41Ca875ad5451f25Ca18110A6A',
 }
 
 /**
@@ -116,7 +116,7 @@ export const QUOTER_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x0D88aE2CF937551e518eb38f5b62644FE6e9CcD0',
+  [SupportedChainId.CELO_ALFAJORES]: '0x8e7F2915f151b6996fF1E4a4B91cC8940BE1e4E1',
 }
 
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
@@ -129,7 +129,7 @@ export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x25ef48cfFc49db7594EcB650843848cC7Aea3794',
+  [SupportedChainId.CELO_ALFAJORES]: '0x6535D8Fb26B25D881598B79ec6c6EF2b59e98c47',
 }
 
 export const ENS_REGISTRAR_ADDRESSES: AddressMap = {
@@ -147,5 +147,5 @@ export const TICK_LENS_ADDRESSES: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
   [SupportedChainId.ARBITRUM_RINKEBY]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x0Ea7Ef05960CdEC93A595c2EE5e31eA8407Fb646',
+  [SupportedChainId.CELO_ALFAJORES]: '0x22f63eB193D53c3277d3C36238c714AC3690cAF3',
 }
