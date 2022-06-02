@@ -140,8 +140,8 @@ const StyledArrowUpRight = styled(ArrowUpRight)`
 const TEXT_COLORS: { [chainId in NetworkAlertChains]: string } = {
   [SupportedChainId.POLYGON]: 'rgba(130, 71, 229)',
   [SupportedChainId.POLYGON_MUMBAI]: 'rgba(130, 71, 229)',
-  [SupportedChainId.CELO]: 'rgba(130, 71, 229)',
-  [SupportedChainId.CELO_ALFAJORES]: 'rgba(130, 71, 229)',
+  [SupportedChainId.CELO]: 'rgba(46,51,56)',
+  [SupportedChainId.CELO_ALFAJORES]: 'rgba(46,51,56)',
   [SupportedChainId.OPTIMISM]: '#ff3856',
   [SupportedChainId.OPTIMISTIC_KOVAN]: '#ff3856',
   [SupportedChainId.ARBITRUM_ONE]: '#0490ed',

@@ -27,6 +27,7 @@ import CommonBases from './CommonBases'
 import CurrencyList from './CurrencyList'
 import ImportRow from './ImportRow'
 import { PaddedColumn, SearchInput, Separator } from './styleds'
+import { SupportedChainId } from '../../constants/chains'
 
 const ContentWrapper = styled(Column)`
   width: 100%;
@@ -110,7 +111,11 @@ export function CurrencySearch({
 
   const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
 
-  const native = useNativeCurrency()
+  const useNative = useNativeCurrency()
+
+  // Don't include Celo Native asset in drop down list since erc20 representation is already imported
+  const native =
+    chainId && [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId) ? undefined : useNative
 
   const filteredSortedTokensWithETH: Currency[] = useMemo(() => {
     if (!native) return filteredSortedTokens

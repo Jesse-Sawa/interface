@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import { arrayify } from '@ethersproject/bytes'
 import { parseBytes32String } from '@ethersproject/strings'
 import { Currency, Token } from '@uniswap/sdk-core'
@@ -10,6 +12,7 @@ import { useMemo } from 'react'
 import { TOKEN_SHORTHANDS } from '../../constants/tokens'
 import { isAddress } from '../../utils'
 import { supportedChainId } from '../../utils/supportedChainId'
+import { SupportedChainId } from '../../constants/chains'
 
 // parse a name or symbol from a token response
 const BYTES32_REGEX = /^0x[a-fA-F0-9]{64}$/
@@ -107,6 +110,15 @@ export function useCurrencyFromMap(tokens: TokenMap, currencyId?: string | null)
   // this case so we use our builtin wrapped token instead of wrapped tokens on token lists
   const wrappedNative = nativeCurrency?.wrapped
   if (wrappedNative?.address?.toUpperCase() === currencyId?.toUpperCase()) return wrappedNative
+
+  // Use Celo ERC20 representation instead of native asset
+  if (
+    chainId &&
+    isNative &&
+    [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId) &&
+    wrappedNative
+  )
+    return wrappedNative
 
   return isNative ? nativeCurrency : token
 }

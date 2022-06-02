@@ -37,11 +37,11 @@ export const V3_CORE_FACTORY_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0xFABdaD603E6bdc8Bc7222B2DB7BcDB84e5a0A385',
+  [SupportedChainId.CELO_ALFAJORES]: '0xAbfC38Ad3BE3618f13dDb29e353047CE3737c2Eb',
 }
 
 export const V3_MIGRATOR_ADDRESSES: AddressMap = {
-  ...constructSameAddressMap('0xA5644E29708357803b5A882D272c41cC0dF92B34', [
+  ...constructSameAddressMap('0x3d4930E1ae79464514e022Dbe104FCD14904A1c3', [
     SupportedChainId.ARBITRUM_ONE,
     SupportedChainId.ARBITRUM_RINKEBY,
     SupportedChainId.POLYGON_MUMBAI,
@@ -52,7 +52,7 @@ export const V3_MIGRATOR_ADDRESSES: AddressMap = {
 }
 
 export const MULTICALL_ADDRESS: AddressMap = {
-  ...constructSameAddressMap('0x1F98415757620B543A52E61c46B32eB19261F984', [
+  ...constructSameAddressMap('0x2221FAA59a68aA4B437be1569BF1563C5F401C0D', [
     SupportedChainId.OPTIMISTIC_KOVAN,
     SupportedChainId.OPTIMISM,
     SupportedChainId.POLYGON_MUMBAI,
@@ -74,7 +74,7 @@ export const SWAP_ROUTER_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON_MUMBAI,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x9Cf09C0507c99b41Ca875ad5451f25Ca18110A6A',
+  [SupportedChainId.CELO_ALFAJORES]: '0x23Bc5Ea94b847d002325D2D8c36F4ffAcB90B246',
 }
 
 /**
@@ -116,7 +116,7 @@ export const QUOTER_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x8e7F2915f151b6996fF1E4a4B91cC8940BE1e4E1',
+  [SupportedChainId.CELO_ALFAJORES]: '0x0D88aE2CF937551e518eb38f5b62644FE6e9CcD0',
 }
 
 export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
@@ -129,7 +129,7 @@ export const NONFUNGIBLE_POSITION_MANAGER_ADDRESSES: AddressMap = {
     SupportedChainId.POLYGON,
   ]),
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x6535D8Fb26B25D881598B79ec6c6EF2b59e98c47',
+  [SupportedChainId.CELO_ALFAJORES]: '0x25ef48cfFc49db7594EcB650843848cC7Aea3794',
 }
 
 export const ENS_REGISTRAR_ADDRESSES: AddressMap = {
@@ -147,5 +147,5 @@ export const TICK_LENS_ADDRESSES: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
   [SupportedChainId.ARBITRUM_RINKEBY]: '0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
   [SupportedChainId.CELO]: '',
-  [SupportedChainId.CELO_ALFAJORES]: '0x22f63eB193D53c3277d3C36238c714AC3690cAF3',
+  [SupportedChainId.CELO_ALFAJORES]: '0x0Ea7Ef05960CdEC93A595c2EE5e31eA8407Fb646',
 }

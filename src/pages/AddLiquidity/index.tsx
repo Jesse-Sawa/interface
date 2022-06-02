@@ -1,13 +1,14 @@
-/* eslint-disable */
-
 import { BigNumber } from '@ethersproject/bignumber'
+import { TransactionResponse } from '@ethersproject/providers'
 import { Trans } from '@lingui/macro'
 import { Currency, CurrencyAmount, Percent } from '@uniswap/sdk-core'
 import { FeeAmount, NonfungiblePositionManager } from '@uniswap/v3-sdk'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
+import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
+import ReactGA from 'react-ga4'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
 import {
@@ -48,9 +49,11 @@ import { useV3PositionFromTokenId } from '../../hooks/useV3Positions'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { Bound, Field } from '../../state/mint/v3/actions'
 import { useTransactionAdder } from '../../state/transactions/hooks'
+import { TransactionType } from '../../state/transactions/types'
 import { useIsExpertMode, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
 import { ExternalLink, ThemedText } from '../../theme'
 import approveAmountCalldata from '../../utils/approveAmountCalldata'
+import { calculateGasMargin } from '../../utils/calculateGasMargin'
 import { currencyId } from '../../utils/currencyId'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { Dots } from '../Pool/styleds'
@@ -69,12 +72,6 @@ import {
   StyledInput,
   Wrapper,
 } from './styled'
-import useActiveWeb3ReactForCelo from '../../hooks/useActiveWeb3ReactForCelo'
-import { TransactionResponse } from '@ethersproject/providers'
-import { TransactionType } from '../../state/transactions/types'
-import ReactGA from 'react-ga4'
-import { SupportedChainId } from '../../constants/chains'
-import { calculateGasMargin } from '../../utils/calculateGasMargin'
 
 const DEFAULT_ADD_IN_RANGE_SLIPPAGE_TOLERANCE = new Percent(50, 10_000)
 
@@ -84,7 +81,7 @@ export default function AddLiquidity({
   },
   history,
 }: RouteComponentProps<{ currencyIdA?: string; currencyIdB?: string; feeAmount?: string; tokenId?: string }>) {
-  const { account, chainId, library } = useActiveWeb3ReactForCelo()
+  const { account, chainId, library } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
   const toggleWalletModal = useWalletModalToggle() // toggle wallet when disconnected
   const expertMode = useIsExpertMode()

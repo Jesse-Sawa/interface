@@ -1,8 +1,6 @@
 /* eslint-disable */
 
-
 import { BigNumber, providers, utils, Wallet } from "ethers";
-
 import {
   CeloTransactionRequest,
   serializeCeloTransaction,

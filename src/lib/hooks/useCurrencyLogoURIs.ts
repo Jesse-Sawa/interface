@@ -7,6 +7,7 @@ import { WrappedTokenInfo } from 'state/lists/wrappedTokenInfo'
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
 import CeloLogo from '../../assets/svg/celo_logo.svg'
 import MaticLogo from '../../assets/svg/matic-token-icon.svg'
+import { NATIVE_CURRENCY_IS_TOKEN } from '../../constants/tokens'
 
 type Network = 'ethereum' | 'arbitrum' | 'optimism'
 
@@ -42,6 +43,13 @@ function getTokenLogoURI(address: string, chainId: SupportedChainId = SupportedC
   if (networksWithUrls.includes(chainId)) {
     return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${address}/logo.png`
   }
+
+  // Use Celo ERC20 logo
+  if (
+    [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId) &&
+    NATIVE_CURRENCY_IS_TOKEN[chainId]?.address === address
+  )
+    return 'https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_CELO.png'
 }
 
 export default function useCurrencyLogoURIs(currency?: Currency | null): string[] {

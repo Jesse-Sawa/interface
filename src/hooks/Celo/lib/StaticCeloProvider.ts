@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-
 import { providers } from "ethers";
 import { CeloProvider } from "./CeloProvider";
 

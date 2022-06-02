@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable */
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from 'web3-react-core'
 
@@ -10,8 +10,8 @@ export default function useActiveWeb3React() {
   const { chainId } = useActiveWeb3ReactWithWeb3Provider()
 
   if (chainId && [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId)) {
-    const interfaceContext = useWeb3React<CeloProvider>()
-    const interfaceNetworkContext = useWeb3React<CeloProvider>(
+    const interfaceContext = useWeb3React<Web3Provider>()
+    const interfaceNetworkContext = useWeb3React<Web3Provider>(
       process.env.REACT_APP_IS_WIDGET ? undefined : NetworkContextName
     )
 

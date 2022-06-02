@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-
 import {
   BigNumber,
   BigNumberish,
@@ -15,12 +14,12 @@ import {
 // Copied because it doesn't seem to be exported from 'ethers' anywhere
 type SignatureLike =
   | {
-      r: string;
-      s?: string;
-      _vs?: string;
-      recoveryParam?: number;
-      v?: number;
-    }
+  r: string;
+  s?: string;
+  _vs?: string;
+  recoveryParam?: number;
+  v?: number;
+}
   | BytesLike;
 
 const logger = new utils.Logger("celo/transactions");

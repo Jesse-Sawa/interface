@@ -4,7 +4,6 @@ import invariant from 'tiny-invariant'
 import { UNI_ADDRESS } from './addresses'
 import { SupportedChainId } from './chains'
 
-/*eslint-disable*/
 export const USDC_MAINNET = new Token(
   SupportedChainId.MAINNET,
   '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -163,34 +162,6 @@ export const WBTC_POLYGON = new Token(
   'WBTC',
   'Wrapped BTC'
 )
-export const DAI_CELO = new Token(
-  SupportedChainId.CELO,
-  '0xE4fE50cdD716522A56204352f00AA110F731932d',
-  18,
-  'DAI',
-  'Dai Stablecoin'
-)
-export const CUSD_CELO = new Token(
-  SupportedChainId.CELO,
-  '0x765DE816845861e75A25fCA122bb6898B8B1282a',
-  6,
-  'CUSD',
-  'Celo Dollar'
-)
-export const CEUR_CELO = new Token(
-  SupportedChainId.CELO,
-  '0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73',
-  6,
-  'CEUR',
-  'Celo Euro Stablecoin'
-)
-export const WBTC_CELO = new Token(
-  SupportedChainId.CELO,
-  '0xBAAB46E28388d2779e6E31Fd00cF0e5Ad95E327B',
-  8,
-  'WBTC',
-  'Wrapped BTC'
-)
 export const USDT = new Token(
   SupportedChainId.MAINNET,
   '0xdAC17F958D2ee523a2206206994597C13D831ec7',
@@ -311,6 +282,49 @@ export const WETH_POLYGON = new Token(
   'WETH',
   'Wrapped Ether'
 )
+export const CELO_CELO = new Token(
+  SupportedChainId.CELO,
+  '0x471EcE3750Da237f93B8E339c536989b8978a438',
+  18,
+  'CELO',
+  'Celo native asset'
+)
+
+export const DAI_CELO = new Token(
+  SupportedChainId.CELO,
+  '0xE4fE50cdD716522A56204352f00AA110F731932d',
+  18,
+  'DAI',
+  'Dai Stablecoin'
+)
+export const CUSD_CELO = new Token(
+  SupportedChainId.CELO,
+  '0x765DE816845861e75A25fCA122bb6898B8B1282a',
+  6,
+  'CUSD',
+  'Celo Dollar'
+)
+export const CEUR_CELO = new Token(
+  SupportedChainId.CELO,
+  '0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73',
+  6,
+  'CEUR',
+  'Celo Euro Stablecoin'
+)
+export const WBTC_CELO = new Token(
+  SupportedChainId.CELO,
+  '0xBAAB46E28388d2779e6E31Fd00cF0e5Ad95E327B',
+  8,
+  'WBTC',
+  'Wrapped BTC'
+)
+export const CELO_ALFAJOFRES = new Token(
+  SupportedChainId.CELO_ALFAJORES,
+  '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
+  18,
+  'CELO',
+  'Celo native asset'
+)
 export const CUSD_CELO_ALFAJORES = new Token(
   SupportedChainId.CELO,
   '0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1',
@@ -334,26 +348,14 @@ export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.KOVAN]: new Token(SupportedChainId.KOVAN, UNI_ADDRESS[42], 18, 'UNI', 'Uniswap'),
 }
 
-export const NATIVE_CURRENCY_IS_ERC20: { [chainId: number]: Token | undefined } = {
-  [SupportedChainId.CELO]: new Token(
-    SupportedChainId.CELO,
-    '0x471EcE3750Da237f93B8E339c536989b8978a438',
-    18,
-    'CELO',
-    'Celo native asset'
-  ),
-  [SupportedChainId.CELO_ALFAJORES]: new Token(
-    SupportedChainId.CELO_ALFAJORES,
-    '0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9',
-    18,
-    'CELO',
-    'Celo native asset'
-  ),
+export const NATIVE_CURRENCY_IS_TOKEN: { [chainId: number]: Token | undefined } = {
+  [SupportedChainId.CELO]: CELO_CELO,
+  [SupportedChainId.CELO_ALFAJORES]: CELO_ALFAJOFRES,
 }
 
 export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
   ...(WETH9 as Record<SupportedChainId, Token>),
-  ...NATIVE_CURRENCY_IS_ERC20,
+  ...NATIVE_CURRENCY_IS_TOKEN,
   [SupportedChainId.OPTIMISM]: new Token(
     SupportedChainId.OPTIMISM,
     '0x4200000000000000000000000000000000000006',
@@ -402,18 +404,14 @@ function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedCh
   return chainId === SupportedChainId.CELO_ALFAJORES || chainId === SupportedChainId.CELO
 }
 
-abstract class NativeWithAddress extends NativeCurrency {
-  readonly address: string | undefined
-}
-
-class CeloNativeCurrency extends NativeWithAddress {
+class CeloNativeCurrency extends NativeCurrency {
   equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
   }
 
   get wrapped(): Token {
     if (!isCelo(this.chainId)) throw new Error('Not celo')
-    const wrapped = NATIVE_CURRENCY_IS_ERC20[this.chainId]
+    const wrapped = NATIVE_CURRENCY_IS_TOKEN[this.chainId]
     invariant(wrapped instanceof Token)
     return wrapped
   }
@@ -421,10 +419,7 @@ class CeloNativeCurrency extends NativeWithAddress {
   public constructor(chainId: number) {
     if (!isCelo(chainId)) throw new Error('Not celo')
     super(chainId, 18, 'Celo', 'Celo')
-    this.address = NATIVE_CURRENCY_IS_ERC20[chainId]?.address
   }
-
-  readonly address: string | undefined
 }
 
 function isMatic(chainId: number): chainId is SupportedChainId.POLYGON | SupportedChainId.POLYGON_MUMBAI {

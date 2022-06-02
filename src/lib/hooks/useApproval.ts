@@ -7,8 +7,6 @@ import { useTokenAllowance } from 'hooks/useTokenAllowance'
 import { useCallback, useMemo } from 'react'
 import { calculateGasMargin } from 'utils/calculateGasMargin'
 
-import { NATIVE_CURRENCY_IS_ERC20 } from '../../constants/tokens'
-
 export enum ApprovalState {
   UNKNOWN = 'UNKNOWN',
   NOT_APPROVED = 'NOT_APPROVED',
@@ -21,23 +19,16 @@ export function useApprovalStateForSpender(
   spender: string | undefined,
   useIsPendingApproval: (token?: Token, spender?: string) => boolean
 ): ApprovalState {
-  const { account, chainId } = useActiveWeb3React()
-
-  let token: Token | undefined
-  if (chainId && NATIVE_CURRENCY_IS_ERC20[chainId]) {
-    token = amountToApprove?.currency as Token
-  } else {
-    token = amountToApprove?.currency?.isToken ? amountToApprove?.currency : undefined
-  }
+  const { account } = useActiveWeb3React()
+  const token = amountToApprove?.currency?.isToken ? amountToApprove.currency : undefined
 
   const currentAllowance = useTokenAllowance(token, account ?? undefined, spender)
   const pendingApproval = useIsPendingApproval(token, spender)
 
   return useMemo(() => {
-    const nativeCurrencyIsErc20 = chainId ? NATIVE_CURRENCY_IS_ERC20[chainId] : false
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
-    if (amountToApprove.currency.isNative && !nativeCurrencyIsErc20) return ApprovalState.APPROVED
-    // we might not have enough data to know whether we need to approve or not
+    if (amountToApprove.currency.isNative) return ApprovalState.APPROVED
+    // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN
 
     // amountToApprove will be defined if currentAllowance is
@@ -46,7 +37,7 @@ export function useApprovalStateForSpender(
         ? ApprovalState.PENDING
         : ApprovalState.NOT_APPROVED
       : ApprovalState.APPROVED
-  }, [amountToApprove, chainId, currentAllowance, pendingApproval, spender])
+  }, [amountToApprove, currentAllowance, pendingApproval, spender])
 }
 
 export function useApproval(
@@ -58,12 +49,7 @@ export function useApproval(
   () => Promise<{ response: TransactionResponse; tokenAddress: string; spenderAddress: string } | undefined>
 ] {
   const { chainId } = useActiveWeb3React()
-  const token =
-    chainId && NATIVE_CURRENCY_IS_ERC20[chainId]
-      ? NATIVE_CURRENCY_IS_ERC20[chainId]
-      : amountToApprove?.currency?.isToken
-      ? amountToApprove.currency
-      : undefined
+  const token = amountToApprove?.currency?.isToken ? amountToApprove.currency : undefined
 
   // check the current approval status
   const approvalState = useApprovalStateForSpender(amountToApprove, spender, useIsPendingApproval)
