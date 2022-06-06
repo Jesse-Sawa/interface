@@ -289,7 +289,6 @@ export const CELO_CELO = new Token(
   'CELO',
   'Celo native asset'
 )
-
 export const DAI_CELO = new Token(
   SupportedChainId.CELO,
   '0xE4fE50cdD716522A56204352f00AA110F731932d',

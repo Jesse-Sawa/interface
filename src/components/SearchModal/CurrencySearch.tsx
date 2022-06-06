@@ -113,7 +113,7 @@ export function CurrencySearch({
 
   const useNative = useNativeCurrency()
 
-  // Don't include Celo Native asset in drop down list since erc20 representation is already imported
+  // Exclude Celo Native asset in Currency search list since erc20 representation is imported
   const native =
     chainId && [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId) ? undefined : useNative
 
