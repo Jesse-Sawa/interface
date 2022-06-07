@@ -1,3 +1,4 @@
+/* eslint-disbale */
 import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers'
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { Protocol } from '@uniswap/router-sdk'

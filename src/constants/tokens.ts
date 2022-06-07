@@ -354,7 +354,6 @@ export const NATIVE_CURRENCY_IS_TOKEN: { [chainId: number]: Token | undefined } 
 
 export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } = {
   ...(WETH9 as Record<SupportedChainId, Token>),
-  ...NATIVE_CURRENCY_IS_TOKEN,
   [SupportedChainId.OPTIMISM]: new Token(
     SupportedChainId.OPTIMISM,
     '0x4200000000000000000000000000000000000006',
