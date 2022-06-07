@@ -5,17 +5,18 @@ const CMC_ALL_LIST = 'https://api.coinmarketcap.com/data-api/v3/uniswap/all.json
 const COINGECKO_LIST = 'https://tokens.coingecko.com/uniswap/all.json'
 const COMPOUND_LIST = 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json'
 const GEMINI_LIST = 'https://www.gemini.com/uniswap/manifest.json'
-export const ARBITRUM_LIST = 'https://bridge.arbitrum.io/token-list-42161.json'
 const KLEROS_LIST = 't2crtokens.eth'
-export const OPTIMISM_LIST = 'https://static.optimism.io/optimism.tokenlist.json'
 const ROLL_LIST = 'https://app.tryroll.com/tokens.json'
 const SET_LIST = 'https://raw.githubusercontent.com/SetProtocol/uniswap-tokenlist/main/set.tokenlist.json'
 const WRAPPED_LIST = 'wrapped.tokensoft.eth'
 
-/*eslint-disable*/
-//TODO deploy list for Alfajores and Mainnet tokens - auto toggle on network switch
-const CELO_ALFAJORES_LIST = 'https://raw.githubusercontent.com/jesse-sawa/celo-token-list/main/alfajores.tokenlist.json'
-const CELO_LIST = 'https://raw.githubusercontent.com/jesse-sawa/celo-token-list/main/celo.tokenlist.json'
+export const OPTIMISM_LIST = 'https://static.optimism.io/optimism.tokenlist.json'
+export const ARBITRUM_LIST = 'https://bridge.arbitrum.io/token-list-42161.json'
+
+// TODO merge lists and remove "ALFAJORES LIST"
+export const CELO_ALFAJORES_LIST =
+  'https://raw.githubusercontent.com/celo-org/celo-token-list/main/alfajores.tokenlist.json'
+export const CELO_LIST = 'https://raw.githubusercontent.com/celo-org/celo-token-list/main/celo.tokenlist.json'
 
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST]
 

@@ -6,7 +6,7 @@ import polygonMaticLogo from 'assets/svg/polygon-matic-logo.svg'
 import ms from 'ms.macro'
 
 import { SupportedChainId, SupportedL1ChainId, SupportedL2ChainId } from './chains'
-import { ARBITRUM_LIST, OPTIMISM_LIST } from './lists'
+import { ARBITRUM_LIST, CELO_ALFAJORES_LIST, CELO_LIST, OPTIMISM_LIST } from './lists'
 
 export enum NetworkType {
   L1,
@@ -32,6 +32,7 @@ interface BaseChainInfo {
 
 export interface L1ChainInfo extends BaseChainInfo {
   readonly networkType: NetworkType.L1
+  readonly defaultListUrl?: string
 }
 
 export interface L2ChainInfo extends BaseChainInfo {
@@ -178,6 +179,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     label: 'Celo',
     logoUrl: celoLogo,
     nativeCurrency: { name: 'Celo', symbol: 'CELO', decimals: 18 },
+    defaultListUrl: CELO_LIST,
   },
   [SupportedChainId.CELO_ALFAJORES]: {
     networkType: NetworkType.L1,
@@ -189,5 +191,6 @@ export const CHAIN_INFO: ChainInfoMap = {
     label: 'Celo',
     logoUrl: celoLogo,
     nativeCurrency: { name: 'Celo', symbol: 'CELO', decimals: 18 },
+    defaultListUrl: CELO_ALFAJORES_LIST,
   },
 }
