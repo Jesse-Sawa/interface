@@ -31,7 +31,6 @@ const StyledGasIcon = styled(GasIcon)`
   }
 `
 
-//TODO make it appear for celo
 export default function GasEstimateBadge({
   trade,
   loading,

@@ -8,6 +8,7 @@ import { ArrowUpRight } from 'react-feather'
 import { useDarkModeManager } from 'state/user/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink, HideSmall } from 'theme'
+import celoAlternativeLog from '../../assets/svg/celo.svg'
 
 import { AutoRow } from '../Row'
 
@@ -160,9 +161,18 @@ export function NetworkAlert() {
   const { label, logoUrl, bridge } = CHAIN_INFO[chainId]
   const textColor = TEXT_COLORS[chainId]
 
+  const ALTERNATIVE_LOGO: { [ChainId: number]: string } = {
+    [SupportedChainId.CELO]: celoAlternativeLog,
+    [SupportedChainId.CELO_ALFAJORES]: celoAlternativeLog,
+  }
+
   return bridge ? (
     <RootWrapper>
-      <ContentWrapper chainId={chainId} darkMode={darkMode} logoUrl={logoUrl}>
+      <ContentWrapper
+        chainId={chainId}
+        darkMode={darkMode}
+        logoUrl={ALTERNATIVE_LOGO[chainId] ? ALTERNATIVE_LOGO[chainId] : logoUrl}
+      >
         <LinkOutToBridge href={bridge}>
           <BodyText color={textColor}>
             <L2Icon src={logoUrl} />

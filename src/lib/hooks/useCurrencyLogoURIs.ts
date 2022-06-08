@@ -45,11 +45,15 @@ function getTokenLogoURI(address: string, chainId: SupportedChainId = SupportedC
   }
 
   // Use Celo ERC20 logo
+  const nativeCurrencyAsToken = NATIVE_CURRENCY_IS_TOKEN[chainId]
+
   if (
-    [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId) &&
-    NATIVE_CURRENCY_IS_TOKEN[chainId]?.address === address
-  )
+    nativeCurrencyAsToken &&
+    nativeCurrencyAsToken.address === address &&
+    [SupportedChainId.CELO, SupportedChainId.CELO_ALFAJORES].includes(chainId)
+  ) {
     return 'https://raw.githubusercontent.com/ubeswap/default-token-list/master/assets/asset_CELO.png'
+  }
 }
 
 export default function useCurrencyLogoURIs(currency?: Currency | null): string[] {

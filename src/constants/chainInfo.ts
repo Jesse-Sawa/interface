@@ -188,7 +188,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     docs: 'https://docs.celo.org/',
     explorer: 'https://alfajores-blockscout.celo-testnet.org/',
     infoLink: 'https://info.uniswap.org/#/celo/',
-    label: 'Celo',
+    label: 'Celo Alfajores',
     logoUrl: celoLogo,
     nativeCurrency: { name: 'Celo', symbol: 'CELO', decimals: 18 },
     defaultListUrl: CELO_ALFAJORES_LIST,
