@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { skipToken } from '@reduxjs/toolkit/query/react'
 import { Currency } from '@uniswap/sdk-core'
 import { FeeAmount, nearestUsableTick, Pool, TICK_SPACINGS, tickToPrice } from '@uniswap/v3-sdk'
@@ -142,6 +143,8 @@ function useTicksFromSubgraph(
   currencyB: Currency | undefined,
   feeAmount: FeeAmount | undefined
 ) {
+  //TODO resolve issue with v3-sdk 3.8.3
+
   const { chainId } = useActiveWeb3React()
   const poolAddress =
     currencyA && currencyB && feeAmount
@@ -149,8 +152,8 @@ function useTicksFromSubgraph(
           currencyA?.wrapped,
           currencyB?.wrapped,
           feeAmount,
-          undefined,
-          chainId ? V3_CORE_FACTORY_ADDRESSES[chainId] : undefined
+          undefined
+          // chainId ? V3_CORE_FACTORY_ADDRESSES[chainId] : undefined
         )
       : undefined
 

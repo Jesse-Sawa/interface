@@ -43,6 +43,7 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
         : [],
     [amountSpecified, routes, tradeType]
   )
+  //TODO investigate why it returns error: true
   const quotesResults = useSingleContractWithCallData(quoter, callData, {
     gasRequired: chainId ? QUOTE_GAS_OVERRIDES[chainId] ?? DEFAULT_GAS_QUOTE : undefined,
   })
@@ -113,6 +114,8 @@ export function useClientSideV3Trade<TTradeType extends TradeType>(
       }
     )
 
+    console.log({ bestRoute, amountIn, amountOut })
+    console.log('\n\n')
     if (!bestRoute || !amountIn || !amountOut) {
       return {
         state: TradeState.NO_ROUTE_FOUND,
